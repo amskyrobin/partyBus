@@ -23,7 +23,8 @@ var config = {
     ]
   },
   externals: {
-    jquery: "jQuery"
+    jquery: "jQuery",
+    xmlhttprequest: "{XMLHttpRequest:XMLHttpRequest}"
   }
 };
 
