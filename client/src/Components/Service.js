@@ -24,8 +24,8 @@ class Service extends React.Component {
           <div>
             {this.props.serviceList.map(function(item, index) {
               return (
-                <div>
-                  <p key={index}>{item.name}</p>
+                <div key={index}>
+                  <p>{item.name}</p>
                   <p>{item.description}</p>
                 </div>
               );
