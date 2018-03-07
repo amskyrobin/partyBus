@@ -1,13 +1,15 @@
 import React from "react";
-import Route from "./Route.js"
-import Service from "./Service.js"
+import Route from "./Route.js";
+import Service from "./Service.js";
+import RouteMap from "./RouteMap.js";
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      services: []
-    }
+      services: [],
+      routes: []
+    };
   }
 
   componentDidMount() {
@@ -24,43 +26,28 @@ class Container extends React.Component {
     xhr.onload = function() {
       if (xhr.status === 200) {
         console.log("good");
-        
         var data = JSON.parse(xhr.responseText);
-        var servicesArray = data.services
-       
-        let servicesStateArray = []
-        for (var i = 0; i < servicesArray.length; i++) {
-           var servicesData = servicesArray[i]
-          
-          servicesStateArray.push({
-            name: servicesData.name,
-            description: servicesData.description
-          })
-         
-          this.setState(
-            {services: servicesStateArray}, () => {console.log(this.state)})
+        var servicesArray = data.services;
+        {
+          this.setState({
+            services: servicesArray,
+            routes: servicesArray
+          });
         }
       } else {
         console.log("bad");
       }
     }.bind(this);
     xhr.send();
-    // fetch("https://tfe-opendata.com/api/v1/timetables/36235979", {
-    //   method: "GET", // or 'PUT'
-    //   headers: new Headers({
-    //     "Content-Type": "application/json",
-    //     Authorization: "Token 8F974D788A6FA7F22AEC511E8D38EC6E",
-    //     "Access-Control-Allow-Origin": "http://localhost:3000"
-    //   })
-    // }).then(res => console.log("response", res));
   }
 
   render() {
     return (
       <div>
         <h1>hello</h1>
-        <Service services={this.state.services} />
-
+        <Service serviceList={this.state.services} />
+        <Route routeList={this.state.routes} />
+        <RouteMap />
       </div>
     );
   }

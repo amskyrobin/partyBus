@@ -1,28 +1,46 @@
 import React from "react";
 
 class Service extends React.Component {
-  constructor(props){
-    super(props)
-    console.log("props", this.props)
-   
+  constructor(props) {
+    super(props);
 
-    
+    this.state = {
+      serviceList: null
+    };
   }
 
-  componentWillReceiveProps(){
-    console.log("props 2", this.props)
-    this.setState()
+  componentWillReceiveProps(props) {
+    console.log("propsFromContainer", this.props);
+    this.setState({ serviceList: this.props });
+    console.log("state in service component", this.state);
   }
 
-
-render (){
-  return (
-    <div>
-    <p>services</p>
-    <p>{}</p>
-    <p></p>
-    </div>)
+  render() {
+    console.log("precheck", this.props);
+    console.log("state check", this.state.serviceList);
+    {
+      if (this.state.serviceList != null) {
+        return (
+          <div>
+            {this.props.serviceList.map(function(item, index) {
+              return (
+                <div>
+                  <p key={index}>{item.name}</p>
+                  <p>{item.description}</p>
+                </div>
+              );
+            })}
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <p>incoming data</p>
+          </div>
+        );
+      }
+    }
+  }
 }
-}
 
-export default Service
+export default Service;
