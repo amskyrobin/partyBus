@@ -47,7 +47,6 @@ class Container extends React.Component {
         <h1>hello</h1>
         <Service serviceList={this.state.services} />
         <Route routeList={this.state.routes} />
-        <RouteMap />
       </div>
     );
   }
