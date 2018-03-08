@@ -1,9 +1,12 @@
 import React from "react";
 import RouteMap from "./RouteMap";
+import CSSModules from "react-css-modules";
+import styles from "../../build/route.css";
 
 class Route extends React.Component {
   constructor(props) {
     super(props);
+    console.log("STYLES", styles);
     console.log("route props", props);
     this.state = {
       allRoutes: []
@@ -32,6 +35,7 @@ class Route extends React.Component {
   render() {
     return (
       <div>
+        <p className={styles.app}> this is a test</p>
         {this.state.allRoutes.length > 0 && (
           <RouteMap allRoutes={this.state.allRoutes} />
         )}
@@ -40,4 +44,4 @@ class Route extends React.Component {
   }
 }
 
-export default Route;
+export default CSSModules(Route, styles);

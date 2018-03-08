@@ -33,7 +33,7 @@ class Service extends React.Component {
       } else {
         return (
           <div>
-            <p>incoming data</p>
+            <p className={styles.app}>incoming data</p>
           </div>
         );
       }
@@ -41,4 +41,4 @@ class Service extends React.Component {
   }
 }
 
-export default Service;
+export default CSSModules(Service, styles);
