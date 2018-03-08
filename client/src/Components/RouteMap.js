@@ -4,31 +4,43 @@ import GoogleMapReact from "google-map-react";
 export default class RouteMap extends React.Component {
   constructor(props) {
     super(props);
+    console.log("props:", props);
     this.handleGoogleMapApi = this.handleGoogleMapApi.bind(this);
     this.state = {
-      path: [],
-      center: { lat: 53.480759, lng: -2.242631 },
+      path: [props.allRoutes],
+      center: { lat: 55.95622, lng: -3.28161 },
       zoom: 11
     };
     console.log("MAP PROPS IN CONSTRUCTOR", this.state);
   }
 
-  componentWillReceiveProps(nextprops) {
-    console.log("MAP PROPS", this.props);
-    console.log("NEXT PROPS", nextprops);
-    this.setState({ path: nextprops.firstRoute });
-  }
+  // componentWillReceiveProps(nextprops) {
+  //   console.log("MAP PROPS", this.props);
+  //   console.log("NEXT PROPS", nextprops);
+  //   this.setState({ path: nextprops.allRoutes });
+  // }
 
   handleGoogleMapApi(google) {
-    var flightPath = new google.maps.Polyline({
-      path: this.state.path,
-      geodesic: true,
-      strokeColor: "#33BD4E",
-      strokeOpacity: 1,
-      strokeWeight: 5
-    });
+    function getRandomColor() {
+      var letters = "0123456789ABCDEF";
+      var color = "#";
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+    var routes = this.state.path[0];
+    routes.map(x => {
+      var flightPath = new google.maps.Polyline({
+        path: x,
+        geodesic: true,
+        strokeColor: getRandomColor(),
+        strokeOpacity: 0.6,
+        strokeWeight: 2
+      });
 
-    flightPath.setMap(google.map);
+      flightPath.setMap(google.map);
+    });
   }
 
   render() {
@@ -38,7 +50,7 @@ export default class RouteMap extends React.Component {
       <div className="map-container" style={{ width: "100%", height: "400px" }}>
         <h1>google map</h1>
         <GoogleMapReact
-          center={this.state.path[0]}
+          center={this.state.center}
           zoom={this.state.zoom}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={this.handleGoogleMapApi}

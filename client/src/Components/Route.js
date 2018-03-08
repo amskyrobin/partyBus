@@ -6,24 +6,27 @@ class Route extends React.Component {
     super(props);
     console.log("route props", props);
     this.state = {
-      firstRoute: []
+      allRoutes: []
     };
   }
 
   componentWillReceiveProps(nextProps) {
     var data = nextProps.routeList.filter(e => e.routes.length > 0);
     var firstRoute = data[0].routes[0].points;
+    var allRoutes = data;
 
-    console.log(firstRoute);
+    console.log("xxxxx:", allRoutes);
 
-    var pointsArray = firstRoute.map((x, i) => ({
-      lat: x.latitude,
-      lng: x.longitude
-    }));
+    var pointsArray = allRoutes.map(y =>
+      y.routes[0].points.map(x => ({
+        lat: x.latitude,
+        lng: x.longitude
+      }))
+    );
 
     console.log("pointsArray:", pointsArray);
 
-    this.setState({ firstRoute: pointsArray });
+    this.setState({ allRoutes: pointsArray });
   }
 
   //Array of two arrays
@@ -35,7 +38,9 @@ class Route extends React.Component {
   render() {
     return (
       <div>
-        <RouteMap firstRoute={this.state.firstRoute} />
+        {this.state.allRoutes.length > 0 && (
+          <RouteMap allRoutes={this.state.allRoutes} />
+        )}
       </div>
     );
   }
