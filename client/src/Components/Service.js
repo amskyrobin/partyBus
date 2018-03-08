@@ -1,4 +1,6 @@
 import React from "react";
+import CSSModules from "react-css-modules";
+import styles from "../../build/service.css";
 
 class Service extends React.Component {
   constructor(props) {
@@ -10,14 +12,10 @@ class Service extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log("propsFromContainer", this.props);
     this.setState({ serviceList: this.props });
-    console.log("state in service component", this.state);
   }
 
   render() {
-    console.log("precheck", this.props);
-    console.log("state check", this.state.serviceList);
     {
       if (this.state.serviceList != null) {
         return (

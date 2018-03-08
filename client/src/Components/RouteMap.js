@@ -14,12 +14,6 @@ export default class RouteMap extends React.Component {
     console.log("MAP PROPS IN CONSTRUCTOR", this.state);
   }
 
-  // componentWillReceiveProps(nextprops) {
-  //   console.log("MAP PROPS", this.props);
-  //   console.log("NEXT PROPS", nextprops);
-  //   this.setState({ path: nextprops.allRoutes });
-  // }
-
   handleGoogleMapApi(google) {
     function getRandomColor() {
       var letters = "0123456789ABCDEF";

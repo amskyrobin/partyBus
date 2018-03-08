@@ -29,12 +29,6 @@ class Route extends React.Component {
     this.setState({ allRoutes: pointsArray });
   }
 
-  //Array of two arrays
-  // var pointsArray = data.map(x => [
-  //   x.routes[0].points.map(y => y.latitude),
-  //   x.routes[0].points.map(z => z.longitude)
-  // ]);
-
   render() {
     return (
       <div>
