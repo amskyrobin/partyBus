@@ -35,7 +35,6 @@ export default class RouteMap extends React.Component {
       });
 
       flightPath.setMap(google.map);
-      console.log("GOOGLE MAPS", google.map);
     });
   }
 
