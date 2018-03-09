@@ -1,0 +1,12 @@
+.map {
+  font-size: 18px;
+  background-color: yellow;
+  box-sizing: border-box;
+  width: 70%;
+  float: left;
+  font-family: arial;
+}
+
+.map h1 {
+  padding-left: 20px;
+}

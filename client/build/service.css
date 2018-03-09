@@ -1,4 +1,86 @@
-.app {
+.service {
   font-size: 18px;
-  color: blue;
+  background-color: blue;
+  font-color: blue;
+  box-sizing: border-box;
+  width: 30%;
+  float: left;
+}
+
+.incoming {
+  background-color: green;
+  box-sizing: border-box;
+  width: 30%;
+  float: left;
+  font-family: arial;
+  font-size: 25px;
+  color: white;
+  padding-left: 30px;
+}
+
+.number {
+  font-family: arial;
+  box-sizing: border-box;
+  width: 25%;
+  float: left;
+  height: 60px;
+  font-size: 20px;
+  background-color: dimgray;
+}
+
+.route {
+  box-sizing: border-box;
+  float: left;
+  width: 75%;
+  height: 60px;
+  font-family: arial;
+  font-size: 20px;
+  background-color: darkgrey;
+}
+
+.route p {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.journey {
+  width: 100%;
+  box-sizing: border-box;
+  float: left;
+  height: 100px;
+  text-align: center;
+}
+
+.name {
+  background-color: tomato;
+  box-sizing: border-box;
+  float: left;
+  width: 25%;
+  height: 100px;
+  font-family: arial;
+  margin: 0;
+  text-align: center;
+}
+
+.name p {
+  display: inline-block;
+  margin: 0px;
+  padding-bottom: 50%;
+  padding-top: 50%;
+  color: white;
+  font-size: 25px;
+}
+
+.description {
+  background-color: salmon;
+  box-sizing: border-box;
+  float: left;
+  width: 75%;
+  height: 100px;
+  font-family: arial;
+}
+
+.description p {
+  padding-left: 20px;
+  padding: 5px;
 }

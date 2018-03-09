@@ -25,7 +25,7 @@ class Container extends React.Component {
 
     xhr.onload = function() {
       if (xhr.status === 200) {
-        console.log("good");
+        console.log("response status 200");
         var data = JSON.parse(xhr.responseText);
         var servicesArray = data.services;
         {
@@ -35,7 +35,7 @@ class Container extends React.Component {
           });
         }
       } else {
-        console.log("bad");
+        console.log("response error");
       }
     }.bind(this);
     xhr.send();
@@ -44,7 +44,6 @@ class Container extends React.Component {
   render() {
     return (
       <div>
-        <h1>hello</h1>
         <Service serviceList={this.state.services} />
         <Route routeList={this.state.routes} />
       </div>

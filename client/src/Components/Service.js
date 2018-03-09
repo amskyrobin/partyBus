@@ -19,12 +19,18 @@ class Service extends React.Component {
     {
       if (this.state.serviceList != null) {
         return (
-          <div>
+          <div className={styles.service}>
+            <div className={styles.number}>Service No.</div>
+            <div className={styles.route}>Description</div>
             {this.props.serviceList.map(function(item, index) {
               return (
-                <div key={index}>
-                  <p>{item.name}</p>
-                  <p>{item.description}</p>
+                <div className={styles.journey} key={index}>
+                  <div className={styles.name}>
+                    <p>{item.name}</p>
+                  </div>
+                  <div className={styles.description}>
+                    <p>{item.description}</p>
+                  </div>
                 </div>
               );
             })}
@@ -32,8 +38,8 @@ class Service extends React.Component {
         );
       } else {
         return (
-          <div>
-            <p className={styles.app}>incoming data</p>
+          <div className={styles.incoming}>
+            <p>incoming data...</p>
           </div>
         );
       }
