@@ -1,18 +1,24 @@
 import React from "react";
+import { connect } from "react-redux";
 import Route from "./Route.js";
 import Service from "./Service.js";
 import RouteMap from "./RouteMap.js";
+import reducer from "../reducers/index.js";
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
+    this.getBusData = this.getBusData.bind(this);
     this.state = {
-      services: [],
       routes: []
     };
   }
 
   componentDidMount() {
+    this.getBusData();
+  }
+
+  getBusData() {
     var xhr = new XMLHttpRequest();
     xhr.open(
       "GET",
@@ -50,5 +56,11 @@ class Container extends React.Component {
     );
   }
 }
+
+const mapStateToProps = store => {
+  return {
+    services: store.services
+  };
+};
 
 export default Container;
