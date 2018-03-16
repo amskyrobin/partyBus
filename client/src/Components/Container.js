@@ -4,21 +4,19 @@ import Route from "./Route.js";
 import Service from "./Service.js";
 import RouteMap from "./RouteMap.js";
 import reducer from "../reducers/index.js";
+import { getServiceData } from "../actions/action.js";
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.getBusData = this.getBusData.bind(this);
-    this.state = {
-      routes: []
-    };
+    this.getServiceData = this.getServiceData.bind(this);
   }
 
   componentDidMount() {
-    this.getBusData();
+    this.getServiceData();
   }
 
-  getBusData() {
+  getServiceData() {
     var xhr = new XMLHttpRequest();
     xhr.open(
       "GET",
@@ -34,12 +32,8 @@ class Container extends React.Component {
         console.log("response status 200");
         var data = JSON.parse(xhr.responseText);
         var servicesArray = data.services;
-        {
-          this.setState({
-            services: servicesArray,
-            routes: servicesArray
-          });
-        }
+        console.log(servicesArray[0]);
+        return servicesArray;
       } else {
         console.log("response error");
       }
@@ -50,8 +44,8 @@ class Container extends React.Component {
   render() {
     return (
       <div>
-        <Service serviceList={this.state.services} />
-        <Route routeList={this.state.routes} />
+        <Service />
+        <Route />
       </div>
     );
   }
@@ -63,4 +57,8 @@ const mapStateToProps = store => {
   };
 };
 
-export default Container;
+// const mapDispatchToProps = dispatch => ({
+//   getBusData: () => dispatch(getServiceData())
+// });
+
+export default connect(mapStateToProps)(Container);
