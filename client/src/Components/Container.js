@@ -16,30 +16,49 @@ class Container extends React.Component {
     this.getServiceData();
   }
 
-  getServiceData() {
-    this.props.setServiceData([]);
-    var xhr = new XMLHttpRequest();
-    xhr.open(
-      "GET",
-      "https://cors-anywhere.herokuapp.com/https://tfe-opendata.com/api/v1/services"
-    );
-    xhr.setRequestHeader(
-      "Authorization",
-      "Token 8F974D788A6FA7F22AEC511E8D38EC6E"
-    );
+  // getServiceData() {
+  //   var propsData = this.props.setServiceData([]);
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.open(
+  //     "GET",
+  //     "https://cors-anywhere.herokuapp.com/https://tfe-opendata.com/api/v1/services"
+  //   );
+  //   xhr.setRequestHeader(
+  //     "Authorization",
+  //     "Token 8F974D788A6FA7F22AEC511E8D38EC6E"
+  //   );
 
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        console.log("response status 200");
-        var data = JSON.parse(xhr.responseText);
-        var servicesArray = data.services;
-        console.log(servicesArray[0]);
-        this.props.setServiceData(servicesArray);
-      } else {
-        console.log("response error");
+  //   xhr.onload = function() {
+  //     if (xhr.status === 200) {
+  //       console.log("response status 200");
+  //       var data = JSON.parse(xhr.responseText);
+  //       var servicesArray = data.services;
+  //       console.log(servicesArray[0]);
+  //       var propsData = this.props.setServiceData(servicesArray);
+  //     } else {
+  //       console.log("response error");
+  //     }
+  //   }.bind(this);
+  //   xhr.send();
+  // }
+
+  getServiceData() {
+    fetch(
+      "https://cors-anywhere.herokuapp.com/https://tfe-opendata.com/api/v1/services",
+      {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: "Token 8F974D788A6FA7F22AEC511E8D38EC6E"
+        })
       }
-    }.bind(this);
-    xhr.send();
+    )
+      .then(r => r.json())
+      .then(response => {
+        var servicesArray = response.services;
+        this.props.setServiceData(servicesArray);
+        console.log("im resolved", servicesArray);
+      });
   }
 
   render() {

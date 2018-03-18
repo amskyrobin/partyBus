@@ -1,28 +1,30 @@
 import React from "react";
 import CSSModules from "react-css-modules";
 import styles from "../../build/service.css";
+import { connect } from "react-redux";
+import reducer from "../reducers/index.js";
 
 class Service extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      serviceList: null
-    };
+    // this.state = {
+    //   serviceList: null
+    // };
   }
 
   componentWillReceiveProps(props) {
-    this.setState({ serviceList: this.props });
+    // this.setState({ serviceList: this.props })
   }
 
   render() {
     {
-      if (this.state.serviceList != null) {
+      if (this.props.services != null) {
         return (
           <div className={styles.service}>
             <div className={styles.number}>Service No.</div>
             <div className={styles.route}>Description</div>
-            {this.props.serviceList.map(function(item, index) {
+            {this.props.services.map(function(item, index) {
               return (
                 <div className={styles.journey} key={index}>
                   <div className={styles.name}>
@@ -47,4 +49,12 @@ class Service extends React.Component {
   }
 }
 
-export default CSSModules(Service, styles);
+const mapStateToProps = store => {
+  console.log("store atService.js:", store);
+  return {
+    services: store.services
+  };
+};
+
+const serviceComponentWithCSS = CSSModules(Service, styles);
+export default connect(mapStateToProps)(serviceComponentWithCSS);

@@ -3,14 +3,14 @@ import { uniqBy, sortBy } from "lodash";
 
 var reducer = (
   state = {
-    services: []
+    services: null
   },
   action
 ) => {
   console.log(action);
   switch (action.type) {
     case SET_SERVICE_DATA:
-      console.log("state", state.services);
+      console.log("REDUCERTETETT", state);
       return { ...state, services: action.servicesArray };
     default:
       return state;
