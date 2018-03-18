@@ -1,3 +1,6 @@
-export function getServiceData() {
-  return { type: "getServiceData" };
+export function setServiceData(servicesArray) {
+  return {
+    type: "SET_SERVICE_DATA",
+    servicesArray: servicesArray
+  };
 }

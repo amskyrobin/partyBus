@@ -1,15 +1,17 @@
-import { getServiceData } from "../actions/action.js";
+import { SET_SERVICE_DATA } from "../actions/action.js";
 import { uniqBy, sortBy } from "lodash";
 
 var reducer = (
   state = {
-    services: "hello"
+    services: []
   },
   action
 ) => {
+  console.log(action);
   switch (action.type) {
-    case "getServiceData":
-      return { ...state, services: state.services };
+    case SET_SERVICE_DATA:
+      console.log("state", state.services);
+      return { ...state, services: action.servicesArray };
     default:
       return state;
   }
