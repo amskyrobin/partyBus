@@ -1,17 +1,18 @@
-import { SET_SERVICE_DATA } from "../actions/action.js";
 import { uniqBy, sortBy } from "lodash";
 
 var reducer = (
   state = {
-    services: null
+    services: null,
+    routesData: null
   },
   action
 ) => {
   console.log(action);
   switch (action.type) {
-    case SET_SERVICE_DATA:
-      console.log("REDUCERTETETT", state);
+    case "setServiceData":
       return { ...state, services: action.servicesArray };
+    case "setRouteData":
+      return { ...state, routesData: action.routesArray };
     default:
       return state;
   }

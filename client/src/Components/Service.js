@@ -8,9 +8,7 @@ class Service extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   serviceList: null
-    // };
+  
   }
 
   componentWillReceiveProps(props) {
@@ -50,7 +48,6 @@ class Service extends React.Component {
 }
 
 const mapStateToProps = store => {
-  console.log("store atService.js:", store);
   return {
     services: store.services
   };

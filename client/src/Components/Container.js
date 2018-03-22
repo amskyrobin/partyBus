@@ -57,7 +57,6 @@ class Container extends React.Component {
       .then(response => {
         var servicesArray = response.services;
         this.props.setServiceData(servicesArray);
-        console.log("im resolved", servicesArray);
       });
   }
 

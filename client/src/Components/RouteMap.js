@@ -1,17 +1,27 @@
 import React from "react";
+
 import GoogleMapReact from "google-map-react";
 import styles from "../../build/routeMap.css";
+import { connect } from "react-redux";
+import reducer from "../reducers/index.js";
+import CSSModules from "react-css-modules";
 
-export default class RouteMap extends React.Component {
+class RouteMap extends React.Component {
   constructor(props) {
     super(props);
     this.handleGoogleMapApi = this.handleGoogleMapApi.bind(this);
     this.getRandomColor = this.getRandomColor.bind(this);
     this.state = {
-      path: [props.allRoutes],
       center: { lat: 55.95622, lng: -3.28161 },
       zoom: 11
     };
+  }
+
+  componentDidMount(){
+    console.log('hello', this.props)
+  }
+  componentWillReceiveProps(nextprops){
+    console.log("nextprops ROUTEMAP", nextprops)
   }
 
   getRandomColor() {
@@ -24,7 +34,7 @@ export default class RouteMap extends React.Component {
   }
 
   handleGoogleMapApi(google) {
-    var routes = this.state.path[0];
+    var routes = this.props.routesData;
     routes.map(x => {
       var flightPath = new google.maps.Polyline({
         path: x,
@@ -40,7 +50,7 @@ export default class RouteMap extends React.Component {
 
   render() {
     {
-      if (this.props.allRoutes != undefined) {
+      if (this.props.routesData != undefined) {
         return (
           <div className={styles.map} style={{ width: "70%", height: "400px" }}>
             <h1>google map</h1>
@@ -62,3 +72,16 @@ export default class RouteMap extends React.Component {
     }
   }
 }
+
+const mapStateToProps = store => {
+  console.log("store ROUTEMAP.js:", store);
+  return {
+    routesData: store.routesData
+  };
+};
+
+const routeMapComponentWithCSS = CSSModules(RouteMap, styles);
+export default connect(mapStateToProps)(routeMapComponentWithCSS);
+
+
+
