@@ -1,5 +1,4 @@
 import React from "react";
-
 import GoogleMapReact from "google-map-react";
 import styles from "../../build/routeMap.css";
 import { connect } from "react-redux";
@@ -11,18 +10,37 @@ class RouteMap extends React.Component {
     super(props);
     this.handleGoogleMapApi = this.handleGoogleMapApi.bind(this);
     this.getRandomColor = this.getRandomColor.bind(this);
+    this.clearEmptyArray = this.clearEmptyArray.bind(this)
+    this.drawLine = this.drawLine.bind(this)
     this.state = {
       center: { lat: 55.95622, lng: -3.28161 },
       zoom: 11
     };
   }
 
-  componentDidMount(){
-    console.log('hello', this.props)
+  clearEmptyArray(){
+    var data = this.props.services.filter(e => e.routes.length > 0);
+    return data
   }
-  componentWillReceiveProps(nextprops){
-    console.log("nextprops ROUTEMAP", nextprops)
-  }
+
+  drawLine(){
+    var serviceName = this.props.serviceName
+    var services = this.props.services
+    var found = services.find(function(element){
+      var test = element.name == serviceName
+      console.log("tetsttst", test)
+      console.log("element.name", element.name)
+      console.log("serviceName", serviceName)
+      if (test){
+        return element.routes
+      }
+    })
+    // I NEED TO FIND THE SERVICE NAME IN THE SERVICES ARRAY
+    //THEN GET ITS ROUTE ARRAY AND CONVERT IT TO LAT AND LANG
+    }
+
+
+  
 
   getRandomColor() {
     var letters = "0123456789ABCDEF";
@@ -48,8 +66,11 @@ class RouteMap extends React.Component {
     });
   }
 
+
+
   render() {
     {
+      {this.drawLine()}
       if (this.props.routesData != undefined) {
         return (
           <div className={styles.map} style={{ width: "70%", height: "400px" }}>
@@ -76,7 +97,9 @@ class RouteMap extends React.Component {
 const mapStateToProps = store => {
   console.log("store ROUTEMAP.js:", store);
   return {
-    routesData: store.routesData
+    routesData: store.routesData,
+    serviceName: store.serviceName, 
+    services: store.services
   };
 };
 

@@ -10,10 +10,7 @@ class Route extends React.Component {
   }
 
 
-
   componentWillReceiveProps(nextprops) {
-    // console.log("nextprops", nextprops);
-    // console.log("this.props", this.props)
 
     if ( this.props.services != nextprops.services) {
       // console.log("nextprops SERVICE", nextprops.services);
@@ -64,6 +61,4 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Route);
 
-//        {this.state.allRoutes.length > 0 && (
-//        <RouteMap allRoutes={this.props.allRoutes} />
-//      )}
+

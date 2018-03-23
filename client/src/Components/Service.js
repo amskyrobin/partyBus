@@ -3,17 +3,22 @@ import CSSModules from "react-css-modules";
 import styles from "../../build/service.css";
 import { connect } from "react-redux";
 import reducer from "../reducers/index.js";
+import { setServiceName } from "../actions/action.js";
 
 class Service extends React.Component {
   constructor(props) {
     super(props);
-
-  
+    this.handleButtonClick = this.handleButtonClick.bind(this)
   }
 
-  componentWillReceiveProps(props) {
-    // this.setState({ serviceList: this.props })
+  handleButtonClick(event, item){
+    console.log("click",)
+    var serviceName = item.name
+    console.log(item.name)
+    this.props.setServiceName(serviceName)
   }
+
+ 
 
   render() {
     {
@@ -24,7 +29,7 @@ class Service extends React.Component {
             <div className={styles.route}>Description</div>
             {this.props.services.map(function(item, index) {
               return (
-                <div className={styles.journey} key={index}>
+                <div  onClick={() => this.handleButtonClick(event, item)} className={styles.journey} key={index}>
                   <div className={styles.name}>
                     <p>{item.name}</p>
                   </div>
@@ -33,7 +38,7 @@ class Service extends React.Component {
                   </div>
                 </div>
               );
-            })}
+            }, this)}
           </div>
         );
       } else {
@@ -49,9 +54,14 @@ class Service extends React.Component {
 
 const mapStateToProps = store => {
   return {
-    services: store.services
+    services: store.services,
+    serviceName: store.serviceName
   };
 };
 
+const mapDispatchToProps = dispatch => ({
+  setServiceName: serviceName => dispatch(setServiceName(serviceName))
+});
+
 const serviceComponentWithCSS = CSSModules(Service, styles);
-export default connect(mapStateToProps)(serviceComponentWithCSS);
+export default connect(mapStateToProps, mapDispatchToProps)(serviceComponentWithCSS);

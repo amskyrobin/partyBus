@@ -11,3 +11,10 @@ export function setRouteData(routesArray) {
     routesArray: routesArray
   };
 }
+
+export function setServiceName(serviceName) {
+  return {
+    type: "setServiceName",
+    serviceName: serviceName
+  };
+}
