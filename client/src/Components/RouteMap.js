@@ -11,6 +11,7 @@ class RouteMap extends React.Component {
     this.handleGoogleMapApi = this.handleGoogleMapApi.bind(this);
     this.getRandomColor = this.getRandomColor.bind(this);
     this.clearEmptyArray = this.clearEmptyArray.bind(this)
+    this.getClickedRouteCoordinates = this.getClickedRouteCoordinates.bind(this)
     this.drawLine = this.drawLine.bind(this)
     this.state = {
       center: { lat: 55.95622, lng: -3.28161 },
@@ -23,7 +24,9 @@ class RouteMap extends React.Component {
     return data
   }
 
-  drawLine(){
+
+
+  getClickedRouteCoordinates(callback){
     var serviceName = this.props.serviceName
     var services = this.props.services
     var found = services.find(function(element){
@@ -32,11 +35,41 @@ class RouteMap extends React.Component {
       console.log("element.name", element.name)
       console.log("serviceName", serviceName)
       if (test){
-        return element.routes
+        // var cleanedRoutesArray = services.clearEmptyArray()
+        var selectedRoute = element.routes[0].points
+        console.log(selectedRoute)
+        var selectedRouteArray = selectedRoute.map(x => ({
+          lat: x.latitude,
+          lng: x.longitude
+        }))
+        console.log(selectedRouteArray)
+
+        callback(selectedRouteArray)
+      
+
+      }else {
+console.log("awaiting data")
       }
+      
     })
-    // I NEED TO FIND THE SERVICE NAME IN THE SERVICES ARRAY
-    //THEN GET ITS ROUTE ARRAY AND CONVERT IT TO LAT AND LANG
+
+    }
+
+    drawLine(google, selectedRouteArray){
+      console.log(selectedRouteArray)
+
+      selectedRouteArray.map(x => {
+        var flightPath = new google.maps.Polyline({
+          path: x,
+          geodesic: true,
+          strokeColor: this.getRandomColor(),
+          strokeOpacity: 0.6,
+          strokeWeight: 3
+        });
+
+        flightPath.setMap(google.map);
+      }) 
+
     }
 
 
@@ -63,14 +96,15 @@ class RouteMap extends React.Component {
       });
 
       flightPath.setMap(google.map);
-    });
+    })  ;
   }
 
 
 
   render() {
     {
-      {this.drawLine()}
+      {this.getClickedRouteCoordinates(this.drawLine)}
+      {console.log("WOW", this.getClickedRouteCoordinates())}
       if (this.props.routesData != undefined) {
         return (
           <div className={styles.map} style={{ width: "70%", height: "400px" }}>
